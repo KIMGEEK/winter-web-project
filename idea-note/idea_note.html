@@ -26,12 +26,14 @@
       </label>
     </div>
     <div class="form-input">
-      <input type="text" class="form-control" placeholder="Text input">
+      <input type="text" class="form-control" id="messageInput" placeholder="Text input">
     </div>
     <div class="form-send">
-      <button type="button" class="btn btn-primary" onclick='getColor()'>Send</button>
+      <button type="button" class="btn btn-primary" onclick='addMessage()'>Send</button>
     </div>
 
-    <div id = "result"></div>
+    <div class="message-board" id="messageBoard">
+      <!-- Messages will be added here -->
+  </div>
 </body>
 </html>
