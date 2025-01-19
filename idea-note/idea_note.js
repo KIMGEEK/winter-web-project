@@ -14,11 +14,14 @@ function addMessage() {
     const input = document.getElementById('messageInput');
     const messageText = input.value.trim();
 
+    const selectedColor = document.querySelector('input[name="headerColor"]:checked').value;
+    const headerClass = selectedColor === 'pink' ? 'bg-danger bg-opacity-25' : 'bg-secondary bg-opacity-25';
+
     // Check if the message is not empty
     if (messageText !== '') {
         const messageHTML = `
         <div class="card mb-3 shadow-sm">
-            <div class="card-header bg-primary">
+            <div class="card-header ${headerClass}">
                 <div class="text-muted">
                             Posted by ${getCurrentUser()} at ${formatDateTime()} (Seoul Time)
                         </div>
