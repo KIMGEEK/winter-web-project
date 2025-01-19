@@ -10,27 +10,56 @@ function getColor() {
 };
 
 function addMessage() {
-            // Get the input element
-            const input = document.getElementById('messageInput');
-            const messageText = input.value.trim();
+    // Get the input element
+    const input = document.getElementById('messageInput');
+    const messageText = input.value.trim();
 
-            // Check if the message is not empty
-            if (messageText !== '') {
-                // Create a new message element
-                const messageElement = document.createElement('div');
-                messageElement.className = 'message';
-                messageElement.textContent = messageText;
+    // Check if the message is not empty
+    if (messageText !== '') {
+        const messageHTML = `
+        <div class="card mb-3 shadow-sm">
+            <div class="card-header bg-primary">
+                <div class="text-muted">
+                            Posted by ${getCurrentUser()} at ${formatDateTime()} (Seoul Time)
+                        </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-top">
+                    <div class="flex-grow-1">
+                        <div class="message-text">${messageText}</div>
+                    </div>
+                    <button class="btn btn-danger btn-sm ms-2" onclick="this.closest('.card').remove()">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+        `;
 
-                // Get the message board
-                const messageBoard = document.getElementById('messageBoard');
+        // Add the new message at the top of the board
+        const messageBoard = document.getElementById('messageBoard');
+        messageBoard.insertAdjacentHTML('afterbegin', messageHTML);
 
-                // Add the new message at the top of the board
-                messageBoard.insertBefore(messageElement, messageBoard.firstChild);
+        // Clear the input field
+        input.value = '';
+        input.focus();
+    }
+}
 
-                // Clear the input field
-                input.value = '';
-            }
+function getCurrentUser() {
+    return 'KIMGEEK';
+}
 
-            // Return focus to input field
-            input.focus();
+// Add event listener for Enter key
+window.onload = function() {
+    document.getElementById('messageInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            addMessage();
         }
+    });
+};
+
+function formatDateTime() {
+    const now = new Date();
+    return now.toISOString().slice(0, 19).replace('T', ' ');
+}
