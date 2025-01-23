@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState, usestate} from 'react';
 
 function Article(props) {
   return (
@@ -41,6 +42,16 @@ function Nav(props) {
   )
 }
 function App() {
+
+  const [mode, setMode] = useState('WELCOME');
+  let content = null;
+  if(mode === 'WELCOME') {
+    content = <Article title="Welcome" body="Hello, WEB!"/>
+  }
+  else if(mode === 'READ') {
+    content = <Article title="Read" body="Hello, Read"/>
+  }
+
   const topics = [
     {id: 1, title: 'HTML', desc: 'HTML is ...'},
     {id: 2, title: 'CSS', desc: 'CSS is ...'},
@@ -49,12 +60,12 @@ function App() {
   return (
     <div>
       <Header title="WEB" onChangeMode={()=>{
-        alert('header');
+        setMode('WELCOME');
       }}/>
       <Nav topics={topics} onChangeMode={(id)=>{
-        alert(id);
-      }}/>
-      <Article title="Welcome" body="Hello, WEB!"/>
+        setMode('READ');
+    }}/>
+      {content}
     </div>
   )
 }
