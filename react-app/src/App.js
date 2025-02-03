@@ -43,6 +43,14 @@ function Nav(props) {
 }
 
 function Create(props) {
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      const title = event.target.form.title.value;
+      const body = event.target.form.body.value;
+      props.onCreate(title, body);
+    }
+  };
   return <article>
     <h2>Create</h2>
     <form onSubmit={event=>{
@@ -52,7 +60,7 @@ function Create(props) {
       props.onCreate(title, body);
     }}>
     <p><input type="text" name='title' placeholder='title'/></p>
-    <p><textarea name='body' placeholder='Describe body'/></p>
+    <p><textarea name='body' placeholder='Describe body'onKeyDown={handleKeyDown}/></p>
     <p><input type='submit' value='Create'></input></p>
     </form>
     </article>
