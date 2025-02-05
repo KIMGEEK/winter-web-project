@@ -1,6 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState, usestate} from 'react';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import {DarkModeSwitch} from 'react-toggle-dark-mode'
 
 function Article(props) {
   return (
@@ -106,6 +109,11 @@ function App() {
     {id: 2, title: 'CSS', body: 'CSS is ...'},
     {id: 3, title: 'JavaScript', body: 'JavaScript is ...'},
   ]);
+  const [isDarkMode, setDarkMode] = React.useState(false);
+
+  const toggleDarkMode = (checked: boolean) => {
+    setDarkMode(checked);
+  };
   let content = null;
   let contextControl = null;
   if(mode === 'WELCOME') {
@@ -189,6 +197,12 @@ function App() {
         {contextControl}
 
       </ul>
+      <DarkModeSwitch
+        style={{marginBottom:'2rem'}}
+        checked={isDarkMode}
+        onChange={toggleDarkMode}
+        size={120}
+      />
     </div>
   )
 }
