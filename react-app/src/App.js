@@ -76,19 +76,22 @@ function Update(props){
     }
   };
   const [title, setTitle] = useState(props.title);
-  const [body, setbody] = useState(props.body);
+  const [body, setBody] = useState(props.body);
   return <article>
     <h2>Update</h2>
     <form onSubmit={event=>{
       event.preventDefault();
       const title = event.target.title.value;
       const body = event.target.body.value;
-      props.onCreate(title, body);
+      props.onUpdate(title, body);
     }}>
     <p><input type="text" name='title' placeholder='title' value={title} onChange={event=>{
       console.log(event.target.value);
+      setTitle(event.target.value);
     }}/></p>
-    <p><textarea name='body' placeholder='Describe body' value={body} onKeyDown={handleKeyDown}/></p>
+    <p><textarea name='body' placeholder='Describe body' value={body} onKeyDown={handleKeyDown} onChange={event=>{
+      setBody(event.target.value);
+    }}/></p>
     <p><input type='submit' value='Update'></input></p>
     </form>
   </article>
@@ -117,10 +120,22 @@ function App() {
       }
     }
     content = <Article title={title} body={body}/>
-    contextControl=<li><a href={'/update/'+id} onClick={event=>{
+    contextControl=<>
+    <li><a href={'/update/'+id} onClick={event=>{
       event.preventDefault();
       setMode('UPDATE');
     }}>Update</a></li>
+    <li><input type='button' value="Delete" onClick={()=>{
+      const newTopics = []
+      for (let i=0; i<topics.length; i++) {
+        if(topics[i].id !== id){
+          newTopics.push(topics[i]);
+        }
+      }
+      setTopics(newTopics);
+      setMode('WELCOME');
+    }}/></li>
+    </>
   }
   else if(mode === 'CREATE') {
     content = <Create onCreate={(_title, _body)=>{
@@ -142,7 +157,17 @@ function App() {
       }
     }
     content = <Update title={title} body={body} onUpdate={(title, body)=>{
-
+      console.log(title, body);
+      const newTopics =[...topics];
+      const updatedTopic = {id:id, title:title, body:body};
+      for(let i = 0; i<newTopics.length; i++){
+        if(newTopics[i].id === id){
+          newTopics[i] = updatedTopic;
+          break;
+        }
+      }
+      setTopics(newTopics);
+      setMode('READ');
     }}></Update>
   }
   return (
@@ -163,6 +188,7 @@ function App() {
           }}>CREATE</a>
         </li>
         {contextControl}
+
       </ul>
     </div>
   )
