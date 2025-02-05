@@ -66,6 +66,34 @@ function Create(props) {
     </article>
 }
 
+function Update(props){
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      const title = event.target.form.title.value;
+      const body = event.target.form.body.value;
+      props.onUpdate(title, body);
+    }
+  };
+  const [title, setTitle] = useState(props.title);
+  const [body, setbody] = useState(props.body);
+  return <article>
+    <h2>Update</h2>
+    <form onSubmit={event=>{
+      event.preventDefault();
+      const title = event.target.title.value;
+      const body = event.target.body.value;
+      props.onCreate(title, body);
+    }}>
+    <p><input type="text" name='title' placeholder='title' value={title} onChange={event=>{
+      console.log(event.target.value);
+    }}/></p>
+    <p><textarea name='body' placeholder='Describe body' value={body} onKeyDown={handleKeyDown}/></p>
+    <p><input type='submit' value='Update'></input></p>
+    </form>
+  </article>
+}
+
 function App() {
   const [mode, setMode] = useState('WELCOME');
   const [id, setId] = useState(null);
@@ -76,6 +104,7 @@ function App() {
     {id: 3, title: 'JavaScript', body: 'JavaScript is ...'},
   ]);
   let content = null;
+  let contextControl = null;
   if(mode === 'WELCOME') {
     content = <Article title="Welcome" body="Hello, WEB!"/>
   }
@@ -88,6 +117,10 @@ function App() {
       }
     }
     content = <Article title={title} body={body}/>
+    contextControl=<li><a href={'/update/'+id} onClick={event=>{
+      event.preventDefault();
+      setMode('UPDATE');
+    }}>Update</a></li>
   }
   else if(mode === 'CREATE') {
     content = <Create onCreate={(_title, _body)=>{
@@ -100,6 +133,18 @@ function App() {
       setNextId(nextId+1);
     }}/>
   }
+  else if(mode === 'UPDATE') {
+    let title, body = null;
+    for (let i = 0; i < topics.length; i++) {
+      if(topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+    content = <Update title={title} body={body} onUpdate={(title, body)=>{
+
+    }}></Update>
+  }
   return (
     <div>
       <Header title="WEB" onChangeMode={()=>{
@@ -108,12 +153,17 @@ function App() {
       <Nav topics={topics} onChangeMode={(_id)=>{
         setMode('READ');
         setId(_id);
-    }}/>
+      }}/>
       {content}
-      <a href="/create" onClick={event=>{
-        event.preventDefault(); // 이벤트의 기본 동작을 중단(여기서는 링크 이동)시키는 함수
-        setMode('CREATE');
-      }}>CREATE</a>
+      <ul>
+        <li>
+          <a href="/create" onClick={event=>{
+            event.preventDefault(); // 이벤트의 기본 동작을 중단(여기서는 링크 이동)시키는 함수
+            setMode('CREATE');
+          }}>CREATE</a>
+        </li>
+        {contextControl}
+      </ul>
     </div>
   )
 }
