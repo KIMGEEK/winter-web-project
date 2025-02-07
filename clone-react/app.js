@@ -1,8 +1,5 @@
-const name = ["nico", "hj", 'jh', 'hh'];
-const sayhello = (name) =>{
-    console.log("hello, my name is "+ name);
+function plus(firstNumber, secondNumber) {
+    console.log(firstNumber + secondNumber);
 }
 
-for(let i = 0; i<name.length; i++){
-    sayhello(name[i]);
-}
+plus(1, 2)
