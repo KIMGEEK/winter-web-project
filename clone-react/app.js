@@ -1,10 +1,6 @@
-const player = {
-    name: "nico",
-    sayhello: function(otherPersonsName) {
-        console.log('helo! ' + otherPersonsName + " nice to meet you");
-    },
-};
+const siren = (word) => {
+    alert(word);
+}
 
-console.log(player.name);
-player.sayhello("lynn");
-player.sayhello("nico");
+siren("Hey!!!");
+siren("Haikyuu!!");
