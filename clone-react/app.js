@@ -1,5 +1,10 @@
-function plus(firstNumber, secondNumber) {
-    console.log(firstNumber + secondNumber);
-}
+const player = {
+    name: "nico",
+    sayhello: function(otherPersonsName) {
+        console.log('helo! ' + otherPersonsName + " nice to meet you");
+    },
+};
 
-plus(1, 2)
+console.log(player.name);
+player.sayhello("lynn");
+player.sayhello("nico");
