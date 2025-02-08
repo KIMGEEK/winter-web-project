@@ -20,7 +20,7 @@ const calculator = {
 }
 
 const powResult = calculator.pow(2, 3);
-calculator.divide(3 , 2);
-calculator.mod(5, 3);
+const divideResult = calculator.divide(powResult , 2);
+const modResult = calculator.mod(divideResult, 3);
 
 console.log(powResult);
