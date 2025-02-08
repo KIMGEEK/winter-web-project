@@ -1,24 +1,26 @@
 const calculator = {
     plus: function(a, b) {
-        alert(a+b);
+        return(a+b);
     },
     minus: function(a, b) {
-        alert(a-b);
+        return(a-b);
     },
     multiply: function(a, b) {
-        alert(a*b);
+        return(a*b);
     },
     divide: function(a, b) {
-        alert(a/b);
+        return(a/b);
     },
     mod: function(a, b) {
-        alert(a%b);
+        return(a%b);
     },
     pow: function(a, b) {
-        alert(a**b);
+        return(a**b);
     },
 }
 
-calculator.pow(2, 3);
+const powResult = calculator.pow(2, 3);
 calculator.divide(3 , 2);
 calculator.mod(5, 3);
+
+console.log(powResult);
