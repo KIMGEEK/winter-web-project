@@ -4,21 +4,17 @@ const logInInput = logInForm.querySelector("input");
 const content = document.getElementById("result");
 const greeting = document.getElementById("greeting");
 
+const HIDDEN_CLASSNAME = "hidden";
+
 const link = document.querySelector("a");
 
 function onlogInSubmit(e) {
     e.preventDefault();
     const username = logInInput.value;
-    logInForm.classList.add("hidden");
+    logInForm.classList.add(HIDDEN_CLASSNAME);
     console.log(username)
-    greeting.innerText = "Welcome, " + username + "!";
-    greeting.classList.remove("hidden");
-}
-
-function handleLinkClick(event){
-    event.preventDefault();
-    console.dir(event);
+    greeting.innerText = `Welcome, ${username}!`;
+    greeting.classList.remove(HIDDEN_CLASSNAME);
 }
 
 logInForm.addEventListener("submit", onlogInSubmit);
-//link.addEventListener("click", handleLinkClick);
