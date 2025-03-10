@@ -195,14 +195,16 @@ function App() {
           }}>CREATE</a>
         </li>
         {contextControl}
-
       </ul>
-      <DarkModeSwitch
-        style={{marginBottom:'2rem'}}
-        checked={isDarkMode}
-        onChange={toggleDarkMode}
-        size={120}
-      />
+      
+      <div class="absolute">
+        <DarkModeSwitch
+          style={{marginBottom:'2rem'}}
+          checked={isDarkMode}
+          onChange={toggleDarkMode}
+          size={30}
+        />
+      </div>
     </div>
   )
 }
